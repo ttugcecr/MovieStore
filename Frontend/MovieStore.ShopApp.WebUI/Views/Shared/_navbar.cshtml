@@ -1,0 +1,64 @@
+  <div class="navbar bg-primary navbar-dark navbar-expand-sm">
+      <div class="container">
+          <a href="/" class="navbar-brand">MoviApp Shop</a>
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Filimler</a>
+              </li>
+              @if (User.Identity.IsAuthenticated)
+              {
+                  <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Cart" asp-action="Index">Sepete Git</a>
+                  </li>
+                  <li class="nav-item">
+                   
+                    <a class="nav-link text-white" asp-area="" asp-controller="Order" asp-action="GetOrders">Satýn Aldýklarým</a>
+                  </li>
+                  if (User.IsInRole("admin"))
+                  {
+                      <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="ProductList">Filimler</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="CategoryList">Kategoriler</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="OrderList">Siparisler</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="RoleList">Roller</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="UserList">Kullanýcýlar</a>
+                    </li>
+                  }
+              }
+
+          </ul>
+          <ul class="navbar-nav ml-auto">
+              @if (User.Identity.IsAuthenticated)
+              {
+                  <li class="nav-item">
+                      <a href="/account/manage" class="nav-link">@User.Identity.Name.ToLower()</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="/account/logout" class="nav-link">Logout</a>
+                  </li>
+              }
+              else
+              {
+                  <li class="nav-item">
+                      <a href="/account/login" class="nav-link">Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="/account/register" class="nav-link">Register</a>
+                  </li>
+              }
+
+
+
+
+          </ul>
+
+      </div>
+   </div>

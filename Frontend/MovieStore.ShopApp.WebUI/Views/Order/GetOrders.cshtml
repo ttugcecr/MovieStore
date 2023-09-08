@@ -1,0 +1,63 @@
+﻿@model List<OrderListModel>
+@{
+    ViewData["Title"] = "GetOrders";
+}
+
+
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ödeme geçmişim</h5>
+
+                @if (Model.Any())
+                {
+
+                    <table class="table table-striped table-bordered">
+
+                        <tr>
+                            <th>Sipariş(ödeme) no</th>
+                            <th>Satın alma tarih</th>
+                            <th>Detaylar</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.OrderId</td>
+                                <td>@item.OrderDate.ToShortDateString()</td>
+                                <td>
+                                    <table class="table table-striped">
+
+                                        <tr>
+                                            <th>Film ismi</th>
+                                            <th>Film fiyat</th>
+                                        </tr>
+                                        @foreach (var orderItem in item.OrderItems)
+                                        {
+                                            <tr>
+                                                <td>@orderItem.Name</td>
+                                                <td>@orderItem.Price TL</td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                }
+                else
+                {
+                    <div class="alert alert-info">Satın aldığınız herhangi bir Film bulunmamaktadır.</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

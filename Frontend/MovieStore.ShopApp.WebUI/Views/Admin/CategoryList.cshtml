@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "CategoryList";
+    int count = 0;
+}
+
+@model List<CategoryListViewModel>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="h3">Admin Categories</h1>
+        <hr>
+        <a href="/admin/CategoryCreate" class="btn btn-primary btn-sm">Add Category</a>
+        <hr>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <td style="width:30px;">Id</td>
+                    <td>Name</td>
+                    <td style="width:40;">Url</td>
+                    <td style="width:180px;">İşlemler</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.Name</td>
+                            <td>@item.Url</td>
+                            <td>
+                                <a href="/admin/categoryedit/@item.CategoryId" class="btn btn-primary btn-sm mr-2">
+                                    <i class="fas fa-pencil-alt">
+                                    </i> Edit
+                                </a>
+                                <a href="/Admin/DeleteCategory/@item.CategoryId" class="btn btn-danger btn-sm" style="display:inline;" id="DeleteBtn"
+                                   onclick="return confirm('Silmek istediğinize emin misiniz?');">
+                                    <i class="fas fa-trash">
+                                    </i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <h3>Kategori Yok/No Category</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

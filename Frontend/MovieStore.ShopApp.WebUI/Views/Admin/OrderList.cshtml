@@ -1,0 +1,80 @@
+﻿@model List<OrderListModel>
+
+@{
+    ViewData["Title"] = "OrderList";
+    int count = 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="h3">Admin Sipariş Listesi Paneli</h1>
+        <hr>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Sipariş no</th>
+                    <th>Satın alma tarih</th>
+                    <th>Satın alan kişi</th>
+                    <th>Telefon No</th>
+                    <th>Email</th>
+                    <th>Ödeme yöntemi</th>
+                    <th>Sipariş Durumu</th>
+                    <th>Detaylar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.OrderNumber</td>
+                            <td>@item.OrderDate.ToShortDateString()</td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Email</td>
+                            @if (item.PaymentType == 0)
+                            {
+                                <td>Kredi Kart</td>
+                            }
+                            else
+                            {
+                                <td>EFT</td>
+                            }
+                            @{
+                                if (item.OrderState == 0)
+                                {
+                                    <td>Bekleniyor</td>
+                                }
+                                else if (((int)item.OrderState) == 1)
+                                {
+                                    <td>Ödenmedi</td>
+                                }
+                                else
+                                {
+                                    <td>Tamamlandı</td>
+                                }
+                            }
+                            <td>
+                                <a href="/Admin/DeleteOrder/@item.OrderId" class="btn btn-danger btn-sm" style="display:inline;" id="DeleteBtn"
+                                   onclick="return confirm('Silmek istediğinize emin misiniz?');">
+                                    <i class="fas fa-trash">
+                                    </i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <h3>Kayıtlı Siparis Yok</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
